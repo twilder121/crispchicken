@@ -1,0 +1,56 @@
+
+-- Program for creating ball in pong
+-- (orb) represets the ball in pong 
+-- defines code for the ball in pong
+
+
+
+
+
+
+
+Orb = Class{}
+
+function    Orb:init(x, y, width, height)
+    self.x = x
+    self.y = y
+    self.width = width
+    self.height = height
+
+   
+    self.dy = 0
+    self.dx = 0
+end
+
+
+function Orb:collides(paddle)
+    
+    if self.x > paddle.x + paddle.width or paddle.x > self.x + self.width then
+        return false
+    end
+
+   
+    if self.y > paddle.y + paddle.height or paddle.y > self.y + self.height then
+        return false
+    end 
+
+    
+    return true
+end
+
+
+function Orb:reset()
+    self.x = VIRTUAL_WIDTH / 2 - 2
+    self.y = VIRTUAL_HEIGHT / 2 - 2
+    self.dx = 0
+    self.dy = 0
+end
+
+function Orb:update(dt)
+    self.x = self.x + self.dx * dt
+    self.y = self.y + self.dy * dt
+end
+
+function Orb:render()
+    love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+end
